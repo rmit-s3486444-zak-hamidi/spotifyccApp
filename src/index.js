@@ -7,7 +7,6 @@ import Amplify from 'aws-amplify';
 import config from './config';
 import * as serviceWorker from './serviceWorker';
 
-
 Amplify.configure({
     Auth:{
         mandatorySignId: true,

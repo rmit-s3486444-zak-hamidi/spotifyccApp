@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import FormErrors from "../FormErrors";
 import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
+import { GoogleLogin } from 'react-google-login';
+const responseGoogle = (response) => {
+  console.log(response);
+}
 
 class LogIn extends Component {
   state = {
@@ -96,6 +100,16 @@ class LogIn extends Component {
                 </span>
               </p>
             </div>
+  <GoogleLogin
+    clientId="769650212569-id2da33ifsdnf7ahuv11gvml7q4cnl23.apps.googleusercontent.com"
+    render={renderProps => (
+      <button onClick={renderProps.onClick} disabled={renderProps.disabled}> Google Login </button>
+    )}
+    buttonText="Login"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+    cookiePolicy={'single_host_origin'}
+  />
             <div className="field">
               <p className="control">
                 <a href="/forgotpassword">Forgot password?</a>

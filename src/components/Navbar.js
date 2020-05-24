@@ -17,8 +17,8 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://www.spotifyccapp.com/">
-            <img src="spotify-logo.png" width="112" height="28" alt="hexal logo" />
+          <a className="navbar-item" href="/">
+            <img src="spotify-logo.png" width="112" height="28" alt="spotify logo" />
           </a>
         </div>
 

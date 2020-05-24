@@ -6,4 +6,5 @@ Akash Hirani (s3758654)
 
 https://spotifyccapp.com/ 
 
-Summary: An application that allows a user to find out what song they are currently listening to on Spotify and able to find out the most popular songs/artists in a particular area or during a particular decade. 
+Summary: An application is able to find out certain information about a singer that they have searched up such as their recent albums, their music genre and how many followers they have. The application will also allow a user to find out what song they are currently listening to on Spotify.
+

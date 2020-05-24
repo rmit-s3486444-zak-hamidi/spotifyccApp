@@ -5,6 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Profile from './Profile';
 import Gallery from './Gallery';
 import {FormControl,FormGroup} from 'react-bootstrap';
+import {Graph} from 'react-d3-graph';
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "https://xugxuuf867.execute-api.us-east-1.amazonaws.com/test/new-resource";
 export default class Artists extends Component{
@@ -14,7 +15,8 @@ export default class Artists extends Component{
         query: '',
         artist: null,
         accessToken: undefined,
-        tracks: []
+        tracks: [],
+        artist_data: null,
     }
   }
 
@@ -83,7 +85,9 @@ search() {
           } else {
               const artist = json.artists.items[0];
               this.setState({ artist });
-              FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`
+              //console.log(this.state.artist.id);
+              FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=AU&`;
+              console.log(FETCH_URL);
               fetch(FETCH_URL, {
                   method: 'GET',
                   headers: {
@@ -104,9 +108,54 @@ search() {
                           console.log('artist\'s top tracks:', json);
                       }
                   })
+                  this.relatedArtists(artist.id);
           }
       });
-    }   
+      
+    }  
+    
+  relatedArtists(artist_id){
+  console.log('this.state', this.state);
+  const ALBUM_URL = 'https://api.spotify.com/v1/artists/';
+  let FETCH_URL = `${ALBUM_URL}${artist_id}/related-artists`;
+  console.log(FETCH_URL);            
+  const myOptions = {
+      method: 'GET',
+      headers: {
+          'Authorization': 'Bearer ' + this.state.accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    }
+
+  fetch(FETCH_URL, myOptions)
+      .then((response) => {
+          return response.json();
+      })
+      .then((json) => {
+          if (json.hasOwnProperty('error')) {
+              console.log('Invalid token');
+              this.getToken();
+
+          }
+           else {
+                  var artists = json.artists;
+                  var nodes = [];
+                  var links = [];
+                  nodes.push({'id': this.state.query});
+                  for(var i =0;i<artists.length;i++){
+                    nodes.push({'id':artists[i].name});
+                    links.push({"source": nodes[0].id, "target": artists[i].name});
+                    //console.log(artists[i]);
+                  }
+                  console.log(nodes);
+                  console.log(links);
+                  var data = {'nodes':nodes,'links':links};
+                  this.setState({artist_data: data});
+                  console.log(this.state.artist_data);
+        }
+      });
+    }
 
 
  componentDidMount() {
@@ -118,6 +167,28 @@ search() {
 }
 
 render() {
+  const myConfig = {
+    nodeHighlightBehavior: true,
+    node: {
+        color: 'lightgreen',
+        size: 500,
+        highlightStrokeColor: 'blue'
+    },
+    link: {
+        highlightColor: 'lightblue'
+    }
+};
+ 
+// graph event callbacks
+const onMouseOverNode = function(nodeId) {
+  window.alert(`Clicked node ${nodeId} `);
+};
+ 
+ 
+const onClickLink = function(source, target) {
+    window.alert(`Clicked link between ${source} and ${target}`);
+};
+ 
   return (
     
   <section className="section auth">
@@ -161,9 +232,23 @@ render() {
                                         tracks={this.state.tracks}
                                     />
                                 </div>
-                            </div>
+                             </div>
                           :<div></div>
       }
+      {
+                              this.state.artist_data !== null
+                              ?
+                              <div style={{height: window.innerHeight*0.8,width: window.innerHeight*0.5}}>
+                              <h1>Recommended Artists</h1>
+                              <Graph id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
+                                    data={this.state.artist_data}
+                                    config={myConfig}
+                                    onClickLink={onClickLink}
+                                    onMouseOverNode={onMouseOverNode}
+                                    />
+                                </div>
+                              :<div></div>
+                            }
       {/* <h1>This is where the content will be!</h1>
       <p>Only logged in users can view this</p> */}
     </div>

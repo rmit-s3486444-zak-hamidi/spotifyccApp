@@ -48,6 +48,9 @@ export default class Navbar extends Component {
                   <a href="/content" className="button is-light">
                   Content
                   </a>
+                  <a href="/artists" className="button is-light">
+                  Search Artists
+                  </a>
                   <a href="/changepassword" className="button is-light">
                   Change Password
                   </a>

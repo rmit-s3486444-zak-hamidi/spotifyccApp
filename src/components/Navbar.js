@@ -45,8 +45,11 @@ export default class Navbar extends Component {
                     <a href="/mapcontainer" className="button is-light">
                   Your Location
                   </a>
+                  <a href="/artists" className="button is-light">
+                  Search Artist
+                  </a>
                   <a href="/content" className="button is-light">
-                  Content
+                  Currently Listening
                   </a>
                   <a href="/changepassword" className="button is-light">
                   Change Password

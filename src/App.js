@@ -6,6 +6,7 @@ import Home from './components/Home';
 import LogIn from './components/auth/LogIn';
 import Map from './components/Map';
 import MapContainer from './components/MapContainer';
+import Artists from './components/Artists';
 import Content from './components/Content';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
@@ -66,6 +67,7 @@ class App extends Component {
               <Route exact path="/mapcontainer" render={(props) => <MapContainer {...props} auth={authProps} />} />
               <Route exact path="/map" render={(props) => <Map {...props} auth={authProps} />} />
               <Route exact path="/content" render={(props) => <Content {...props} auth={authProps} />} />
+              <Route exact path="/artists" render={(props) => <Artists {...props} auth={authProps} />} />
               <Route exact path="/register" render={(props) => <Register {...props} auth={authProps} />} />
               <Route exact path="/forgotpassword" render={(props) => <ForgotPassword {...props} auth={authProps} />} />
               <Route exact path="/forgotpasswordverification" render={(props) => <ForgotPasswordVerification {...props} auth={authProps} />} />

@@ -18,7 +18,7 @@ export default class Navbar extends Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src="spotify-logo.png" width="112" height="28" alt="spotify logo" />
+            <img src="spotify-logo.png" width="112" height="28" alt="hexal logo" />
           </a>
         </div>
 
@@ -45,11 +45,11 @@ export default class Navbar extends Component {
                     <a href="/mapcontainer" className="button is-light">
                   Your Location
                   </a>
-                  <a href="/artists" className="button is-light">
-                  Search Artist
-                  </a>
                   <a href="/content" className="button is-light">
-                  Currently Listening
+                  Content
+                  </a>
+                  <a href="/artists" className="button is-light">
+                  Search Artists
                   </a>
                   <a href="/changepassword" className="button is-light">
                   Change Password
